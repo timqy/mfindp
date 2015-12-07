@@ -1,0 +1,26 @@
+cd files
+mkdir a
+ln -s a b
+ln -s a/c c
+cd a
+mkdir b c d
+ln -s b a
+cd b
+mkdir a b
+touch c
+cd a
+mkdir b
+ln -s ../b/a a
+touch b/a b/b b/c
+cd ..
+touch b/a b/c
+cd ..
+cd c
+mkdir b
+touch a b/a b/b
+cd ..
+chmod 000 c
+cd d
+mkdir c
+touch a b c/a c/b
+chmod 000 c/a
