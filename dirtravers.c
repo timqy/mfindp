@@ -53,7 +53,7 @@ void searchForName(char * path,struct Flags * options){
             if(options->dflag && strstr(entry->d_name,options->searchName) != NULL){
                 printf("%s\n", adress);
             }              
-            
+             
             /** add the directory adress to the work pool */
             add_work(adress);
         } else { 

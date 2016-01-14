@@ -16,15 +16,15 @@
 void doWork(struct Flags * options);
 
 int main(int argc, char *argv[]){
-   if(argc < 3){
+    if(argc < 3){
            fprintf(stderr,"Wrong input, should be:");
            fprintf(stderr,"mfind flags folder name\n");
            exit(-1);
     }
   
-   /** get the needed variables */ 
-   struct Flags *options = getOptions(argc,argv);
-    options->searchName = argv[argc-1];
+    /** get the needed variables */ 
+    struct Flags *options = getOptions(argc,argv);
+    options->searchName = strdup(argv[argc-1]);
     pthread_t thread[options->nrthr];
 
     /** create as many nrthr as stated */
@@ -38,8 +38,12 @@ int main(int argc, char *argv[]){
 
 
     /** search for files in each path given */
-    for ( int index = optind; index < argc-1 ; index++){ 
-        add_work(strdup(argv[index]));
+    for ( int index = optind; index < argc-1 ; index++){
+        if(argv[index][strlen(argv[index])-1] != '/') {
+            add_work(strdup(strcat(argv[index],"/")));
+        }else{
+            add_work(strdup(argv[index]));    
+        }
     }
  
     setWaiting(true);  
